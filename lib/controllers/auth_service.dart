@@ -16,7 +16,7 @@ class AuthService {
       'email': email,
     });
       return "Akun telah terdaftar";
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       return 'Maaf, akun sudah terdaftarkan sebelumnya';
     }
     
@@ -29,7 +29,7 @@ class AuthService {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       return "Login berhasil!";
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       return 'Maaf, Akun tidak ditemukan!';
     }
   }

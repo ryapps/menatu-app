@@ -9,6 +9,12 @@ import 'package:menatu_app/views/onboarding/onboarding_widget.dart';
 import 'package:menatu_app/views/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'views/home/home_page.dart';
+import 'views/login/login_page.dart';
+import 'views/login/signup_page.dart';
+import 'views/onboarding/onboarding_widget.dart';
+import 'views/splash_screen.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
