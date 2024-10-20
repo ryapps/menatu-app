@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:menatu_app/controllers/auth_service.dart';
 
+import 'package:menatu_app/views/login/email_verification.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
@@ -13,11 +16,32 @@ class _SignupPageState extends State<SignupPage> {
   final formKey = GlobalKey<FormState>();
   bool _obscureText = true;
   bool _obscureConfirmText = true;
+  AuthService authService = AuthService();
+  String? _message;
+
+  void initState() {
+    super.initState();
+    checkMessage(); // Memanggil fungsi untuk memuat userId
+  }
+
+  Future<void> checkMessage() async {
+    String? message = await getMessage();
+    setState(() {
+      _message = message;
+    });
+  }
+
+  Future<String?> getMessage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs
+        .getString('message'); // Mengambil userId dari SharedPreferences
+  }
 
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,13 +111,13 @@ class _SignupPageState extends State<SignupPage> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .secondary,
-                                        width: 1,
+                                        width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(10)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Theme.of(context).primaryColor,
-                                        width: 1,
+                                        width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(10)),
                                   enabledBorder: OutlineInputBorder(
@@ -146,13 +170,13 @@ class _SignupPageState extends State<SignupPage> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .secondary,
-                                        width: 1,
+                                        width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(10)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Theme.of(context).primaryColor,
-                                        width: 1,
+                                        width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(10)),
                                   enabledBorder: OutlineInputBorder(
@@ -208,7 +232,7 @@ class _SignupPageState extends State<SignupPage> {
                                           color: Theme.of(context)
                                               .colorScheme
                                               .secondary,
-                                          width: 1,
+                                          width: 2,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(10)),
@@ -222,7 +246,7 @@ class _SignupPageState extends State<SignupPage> {
                                     enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.grey.shade300,
-                                          width: 2,
+                                          width: 1,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(10)),
@@ -280,7 +304,7 @@ class _SignupPageState extends State<SignupPage> {
                                           color: Theme.of(context)
                                               .colorScheme
                                               .secondary,
-                                          width: 1,
+                                          width: 2,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(10)),
@@ -294,7 +318,7 @@ class _SignupPageState extends State<SignupPage> {
                                     enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.grey.shade300,
-                                          width: 2,
+                                          width: 1,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(10)),
@@ -308,7 +332,8 @@ class _SignupPageState extends State<SignupPage> {
                                     suffixIcon: IconButton(
                                       onPressed: () {
                                         setState(() {
-                                          _obscureConfirmText = !_obscureConfirmText;
+                                          _obscureConfirmText =
+                                              !_obscureConfirmText;
                                         });
                                       },
                                       icon: _obscureConfirmText
@@ -319,7 +344,6 @@ class _SignupPageState extends State<SignupPage> {
                               )),
                         ],
                       ),
-                     
                       SizedBox(
                         height: 10,
                       ),
@@ -334,82 +358,82 @@ class _SignupPageState extends State<SignupPage> {
                                                   10))),
                                   backgroundColor: MaterialStateProperty.all(
                                       Theme.of(context).primaryColor)),
-                              onPressed: () {
+                              onPressed: () async {
                                 if (formKey.currentState!.validate()) {
-                                  AuthService()
-                                      .createAccountWithEmail(
-                                          _emailController.text,
-                                          _passwordController.text,
-                                          _usernameController.text)
-                                      .then((value) {
-                                    if (value == "Akun telah terdaftar") {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                        margin: EdgeInsets.only(
-                                            bottom: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                .8,
-                                            left: 20,
-                                            right: 20),
-                                        behavior: SnackBarBehavior.floating,
-                                        content: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              value,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                        backgroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .tertiary,
-                                      ));
-                                      Navigator.pushReplacementNamed(
-                                          context, '/home');
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                        margin: EdgeInsets.only(
-                                            bottom: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                .8,
-                                            left: 20,
-                                            right: 20),
-                                        behavior: SnackBarBehavior.floating,
-                                        content: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              value,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              'Silakan coba lagi',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12,
-                                                  fontWeight:
-                                                      FontWeight.normal),
-                                            ),
-                                          ],
-                                        ),
-                                        backgroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                      ));
-                                    }
-                                  });
+                                  await authService.register(
+                                      _usernameController.text,
+                                      _emailController.text,
+                                      _passwordController.text,
+                                      _confirmPasswordController.text);
+                                  checkMessage();
+                                  if (_message ==
+                                      'Mengirim pesan ke gmail ${_emailController.text}') {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      margin: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              .8,
+                                          left: 20,
+                                          right: 20),
+                                      behavior: SnackBarBehavior.floating,
+                                      content: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            _message.toString(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary,
+                                    ));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              EmailVerificationScreen(
+                                            toEmail: _emailController.text,
+                                          ),
+                                        ));
+                                  } else if (_message ==
+                                      'Email telah terpakai') {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      margin: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              .8,
+                                          left: 20,
+                                          right: 20),
+                                      behavior: SnackBarBehavior.floating,
+                                      content: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            _message.toString(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                    ));
+                                  }
+                                  ;
                                 }
                               },
                               child: Text(

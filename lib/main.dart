@@ -1,7 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:menatu_app/firebase_options.dart';
 import 'package:menatu_app/views/home/home_page.dart';
 import 'package:menatu_app/views/login/login_page.dart';
 import 'package:menatu_app/views/login/signup_page.dart';
@@ -10,10 +8,6 @@ import 'package:menatu_app/views/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool? onboardingCompleted = prefs.getBool('onboarding_completed');
 
