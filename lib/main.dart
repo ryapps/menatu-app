@@ -5,8 +5,12 @@ import 'package:menatu_app/firebase_options.dart';
 import 'package:menatu_app/views/home/home_page.dart';
 import 'package:menatu_app/views/login/login_page.dart';
 import 'package:menatu_app/views/login/signup_page.dart';
+import 'package:menatu_app/views/lokasi/lokasi_page.dart';
 import 'package:menatu_app/views/onboarding/onboarding_widget.dart';
+import 'package:menatu_app/views/pesan/pesan_page.dart';
 import 'package:menatu_app/views/splash_screen.dart';
+import 'package:menatu_app/views/transaksi/transaksi_page.dart';
+import 'package:menatu_app/views/user/user_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'views/home/home_page.dart';
@@ -50,7 +54,12 @@ class MyApp extends StatelessWidget {
           '/onboarding': (context) => OnBoardingView(),
           '/login': (context) => LoginPage(),
           '/signup': (context) => SignupPage(),
-          '/home': (context) => HomePage()
+          '/home': (context) => HomePage(),
+          '/user':(context)=> UserPage(),
+          '/pesan':(context)=> PesanPage(),
+          '/transaksi':(context)=> TransaksiPage(),
+          '/lokasi':(context)=> LokasiPage(),
+
         });
   }
 }
