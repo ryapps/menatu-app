@@ -13,9 +13,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
-
+  AuthService authService = AuthService();
   final formKey = GlobalKey<FormState>();
-  bool _isChecked = false;
   bool _obscureText = true;
 
   TextEditingController _emailController = TextEditingController();
@@ -183,12 +182,12 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ForgotPasswordView(),
-                                  ),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => ForgotPasswordView(),
+                                //   ),
+                                // );
                               },
                               child: Text(
                                 'Lupa password?',
@@ -216,8 +215,8 @@ class _LoginPageState extends State<LoginPage> {
                                       Theme.of(context).primaryColor)),
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  AuthService()
-                                      .loginWithEmail(_emailController.text,
+                                  authService
+                                      .login(_emailController.text,
                                           _passwordController.text)
                                       .then((value) {
                                     if (value == "Login berhasil!") {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
@@ -22,8 +21,6 @@ class ResetPasswordScreen extends StatelessWidget {
               onPressed: () async {
                 try {
                   // Ubah password pengguna
-                  User? user = FirebaseAuth.instance.currentUser;
-                  await user?.updatePassword(_passwordController.text);
                   print("Password berhasil diperbarui");
                   // Setelah berhasil, kembali ke halaman login
                   Navigator.pop(context);
