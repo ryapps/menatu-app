@@ -1,10 +1,11 @@
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:menatu_app/controllers/auth_service.dart';
-import 'package:menatu_app/controllers/crud.dart';
 import 'package:menatu_app/widget/bottom_nav.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:menatu_app/controllers/auth_service.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -31,12 +32,7 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 10,
                   ),
-                  FutureBuilder(
-                      future: getUserName(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<String?> snapshot) {
-                        return Text('Hello ${snapshot.data}');
-                      })
+
                 ],
               ),
             ),
