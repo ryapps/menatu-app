@@ -4,6 +4,7 @@
 **Menatu** adalah aplikasi inovatif yang dirancang untuk memberikan kemudahan dalam mengelola kebutuhan laundry Anda. Dengan antarmuka yang sederhana dan fitur yang lengkap, Menatu memastikan pengalaman laundry Anda lebih nyaman dan efisien!  
 
 ---
+![Splash Screen](assets/img-readme/Splash Screen.png)
 
 ## **Fitur-Fitur Unggulan**  
 
