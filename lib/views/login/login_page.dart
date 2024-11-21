@@ -213,9 +213,9 @@ class _LoginPageState extends State<LoginPage> {
                                                   10))),
                                   backgroundColor: MaterialStateProperty.all(
                                       Theme.of(context).primaryColor)),
-                              onPressed: () {
+                              onPressed: () async{
                                 if (formKey.currentState!.validate()) {
-                                  authService
+                                  await authService
                                       .login(_emailController.text,
                                           _passwordController.text)
                                       .then((value) {

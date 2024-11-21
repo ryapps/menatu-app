@@ -17,11 +17,11 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     // Timer untuk berpindah dari splash screen ke halaman utama setelah 3 detik
     Timer(Duration(seconds: 5), () {
-      AuthService().isLoggedIn().then((value) {
+      AuthService().isLoggedIn().then((value) async{
         if (value) {
-          Navigator.pushReplacementNamed(context, '/home');
+          await Navigator.pushReplacementNamed(context, '/home');
         } else {
-          Navigator.pushReplacementNamed(context, '/onboarding');
+          await Navigator.pushReplacementNamed(context, '/onboarding');
         }
       });
     });
@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (onboardingCompleted ?? false) {
       // Jika onboarding telah diselesaikan, langsung menuju HomePage
-      Navigator.pushReplacementNamed(context, '/login');
+    Navigator.pushReplacementNamed(context, '/login');
     }
     // Jika onboarding belum diselesaikan, menuju OnboardingPage
     Navigator.pushReplacementNamed(context, '/onboarding');

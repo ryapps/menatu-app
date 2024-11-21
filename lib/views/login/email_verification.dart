@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:menatu_app/controllers/auth_service.dart';
+import 'package:menatu_app/views/home/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
@@ -60,13 +61,15 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   }
 
   Future<void> _checkVerification(id) async {
+
     try {
       final response = await http.get(
-        Uri.parse('https://menatu.serveo.net/api/check-verification/$id'),
+        Uri.parse('https://menatu.loca.lt/api/check-verification/$id'),
       );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+
         setState(() {
           _isVerified = data['verified'];
           _isChecking = false;
@@ -74,9 +77,9 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         });
 
         // Jika sudah terverifikasi, hentikan timer
-        if (_isVerified) {
+        if (_isVerified){
           _timer?.cancel();
-          Navigator.pushReplacementNamed(context, '/home');
+          await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(userId: id,),));
         }
       } else {
         // Tangani kesalahan jika perlu

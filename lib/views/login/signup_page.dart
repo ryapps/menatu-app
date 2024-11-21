@@ -39,6 +39,7 @@ class _SignupPageState extends State<SignupPage> {
 
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
+  TextEditingController _noTeleponController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
 
@@ -213,6 +214,69 @@ class _SignupPageState extends State<SignupPage> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
+                              'No Telepon',
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .9,
+                            child: TextFormField(
+                              controller: _noTeleponController,
+                              keyboardType: TextInputType.phone,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Theme.of(context).primaryColor,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.grey.shade300,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  hintText: 'Masukkan nomor telepon',
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey.shade400,
+                                  )),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Nomor telepon tidak boleh kosong';
+                                }
+
+                                // RegEx untuk nomor telepon Indonesia
+                                final phoneRegExp =
+                                    RegExp(r'^(?:\+62|0)[2-9]{1}[0-9]{8,11}$');
+                                if (!phoneRegExp.hasMatch(value)) {
+                                  return 'Masukkan nomor telepon yang valid';
+                                }
+
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
                               'Password',
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w500),
@@ -363,6 +427,7 @@ class _SignupPageState extends State<SignupPage> {
                                   await authService.register(
                                       _usernameController.text,
                                       _emailController.text,
+                                      _noTeleponController.text,
                                       _passwordController.text,
                                       _confirmPasswordController.text);
                                   checkMessage();

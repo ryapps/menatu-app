@@ -9,10 +9,10 @@ class AuthService {
   bool isVerified = false;
   Map<String, dynamic>? _user;
   final String baseUrl =
-      'https://menatu.serveo.net/api'; // Ubah sesuai dengan base URL API Anda
+      'https://menatu.loca.lt/api'; // Ubah sesuai dengan base URL API Anda
 
   // Fungsi register user baru
-  Future<void> register(String username, String email, String password,
+  Future<void> register(String username, String email,String no_telepon, String password,
       String confirmPassword) async {
     final response = await http.post(
       Uri.parse('$baseUrl/register'),
@@ -20,6 +20,7 @@ class AuthService {
       body: json.encode({
         'name': username,
         'email': email,
+        'no_telepon': no_telepon,
         'password': password,
         'password_confirmation': confirmPassword,
       }),
