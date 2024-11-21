@@ -11,8 +11,6 @@ import 'package:menatu_app/views/transaksi/transaksi_page.dart';
 import 'package:menatu_app/views/user/user_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -31,15 +29,13 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: Color.fromRGBO(1, 138, 144, 1)
-          ),
+              backgroundColor: Color.fromRGBO(1, 138, 144, 1)),
           textTheme: GoogleFonts.interTextTheme(),
           primaryColor: Color.fromRGBO(1, 138, 144, 1),
           colorScheme: ColorScheme.fromSwatch().copyWith(
               secondary: Color.fromRGBO(240, 28, 61, 1),
               surface: Color.fromRGBO(233, 221, 208, 1),
-              tertiary: Color.fromRGBO(0, 203, 206, 1).withOpacity(0.2)
-              ),
+              tertiary: Color.fromRGBO(0, 203, 206, 1).withOpacity(0.2)),
           scaffoldBackgroundColor: Colors.white,
           useMaterial3: true,
         ),
@@ -49,12 +45,10 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginPage(),
           '/signup': (context) => SignupPage(),
           '/home': (context) => HomePage(),
-          '/user':(context)=> UserPage(),
-          '/pesan':(context)=> PesanPage(),
-          '/transaksi':(context)=> TransaksiPage(),
-          '/eksplor':(context)=> ExplorePage(),
-
+          '/user': (context) => UserPage(),
+          '/pesan': (context) => PesanPage(),
+          '/transaksi': (context) => TransaksiPage(),
+          '/eksplor': (context) => ExplorePage(),
         });
   }
 }
-
